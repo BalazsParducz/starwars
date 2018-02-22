@@ -1,6 +1,46 @@
 {% extends "starwars.html" %}
 {% block content %}
+
 <h1>See some space stats</h1>
 
+
+<div class="table">
+    <table>
+        <thead>
+        <tr>
+            <th scope="col">name</th>
+            <th scope="col">diameter in km</th>
+            <th scope="col">climate</th>
+            <th scope="col">terrain</th>
+            <th scope="col">Surface water percentage</th>
+            <th scope="col">Population</th>
+            <th scope="col">Residents</th>
+            <th scope="col">Vote</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for item in planets_data %}
+        <tr>
+            <td>{{ item['name'] }}</td>
+            <td>{{ item['diameter'] }}</td>
+            <td>{{ item['climate'] }}</td>
+            <td>{{ item['terrain'] }}</td>
+            <td>{{ item['surface_water'] }}</td>
+            <td>{{ item['population'] }}</td>
+            {% if item['residents'] %}
+            <td><button type="button" class="btn btn-info" id="residents" name="residents"
+                        value="{{ item['residents'] }} resident(s)">{{ residents }} resident(s)</button></td>
+            {% else %}
+            <td>No known residents</td>
+            {% endif %}
+            <td><button type="button" class="btn btn-info" id="vote" name="vote" value="Vote">Vote</button></td>
+
+        </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+</div>
 
 {% endblock %}
