@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="starwars@localhost">
+  <database-model serializer="dbm" rdbms="POSTGRES" format-version="4.7">
+    <root id="1"/>
+    <database id="2" parent="1" name="starwars">
+      <ObjectId>25993</ObjectId>
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </database>
+    <database id="3" parent="1" name="postgres">
+      <ObjectId>12411</ObjectId>
+    </database>
+    <database id="4" parent="1" name="balacitopapi">
+      <ObjectId>16385</ObjectId>
+    </database>
+    <database id="5" parent="1" name="parduczdb">
+      <ObjectId>24576</ObjectId>
+    </database>
+    <database id="6" parent="1" name="application_db">
+      <ObjectId>24582</ObjectId>
+    </database>
+    <database id="7" parent="1" name="ask_mate_db">
+      <ObjectId>24621</ObjectId>
+    </database>
+    <database id="8" parent="1" name="codecool_series">
+      <ObjectId>25623</ObjectId>
+    </database>
+    <role id="9" parent="1" name="balacitopapi">
+      <ObjectId>16384</ObjectId>
+      <SuperRole>1</SuperRole>
+      <Inherit>1</Inherit>
+      <CreateRole>1</CreateRole>
+      <CreateDb>1</CreateDb>
+      <CanLogin>1</CanLogin>
+      <ConnectionLimit>-1</ConnectionLimit>
+    </role>
+    <role id="10" parent="1" name="postgres">
+      <ObjectId>10</ObjectId>
+      <SuperRole>1</SuperRole>
+      <Inherit>1</Inherit>
+      <CreateRole>1</CreateRole>
+      <CreateDb>1</CreateDb>
+      <CanLogin>1</CanLogin>
+      <Replication>1</Replication>
+      <ConnectionLimit>-1</ConnectionLimit>
+      <BypassRls>1</BypassRls>
+    </role>
+    <schema id="11" parent="2" name="public">
+      <ObjectId>2200</ObjectId>
+      <IntrospectionTimestamp>2018-02-25.12:29:29.187</IntrospectionTimestamp>
+      <IntrospectionStateNumber>2167</IntrospectionStateNumber>
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="12" parent="2" name="pg_catalog">
+      <ObjectId>11</ObjectId>
+    </schema>
+    <schema id="13" parent="2" name="pg_toast">
+      <ObjectId>99</ObjectId>
+    </schema>
+    <schema id="14" parent="2" name="pg_temp_1">
+      <ObjectId>11816</ObjectId>
+    </schema>
+    <schema id="15" parent="2" name="pg_toast_temp_1">
+      <ObjectId>11817</ObjectId>
+    </schema>
+    <schema id="16" parent="2" name="information_schema">
+      <ObjectId>12119</ObjectId>
+    </schema>
+    <sequence id="17" parent="11" name="users_id_seq">
+      <ObjectId>26012</ObjectId>
+      <StateNumber>2163</StateNumber>
+      <SequenceIdentity>1</SequenceIdentity>
+      <BelongsToColumn>1</BelongsToColumn>
+      <CacheSize>1</CacheSize>
+    </sequence>
+    <table id="18" parent="11" name="users">
+      <ObjectId>26014</ObjectId>
+      <StateNumber>2167</StateNumber>
+    </table>
+    <column id="19" parent="18" name="id">
+      <Position>1</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>2163</StateNumber>
+      <DefaultExpression>nextval(&apos;users_id_seq&apos;::regclass)</DefaultExpression>
+      <SequenceName>users_id_seq</SequenceName>
+    </column>
+    <column id="20" parent="18" name="username">
+      <Position>2</Position>
+      <DataType>varchar(250)|0</DataType>
+      <StateNumber>2163</StateNumber>
+    </column>
+    <column id="21" parent="18" name="password">
+      <Position>3</Position>
+      <DataType>varchar(250)|0</DataType>
+      <StateNumber>2163</StateNumber>
+    </column>
+    <column id="22" parent="18" name="first_name">
+      <Position>4</Position>
+      <DataType>varchar(250)|0</DataType>
+      <StateNumber>2166</StateNumber>
+    </column>
+    <column id="23" parent="18" name="last_name">
+      <Position>5</Position>
+      <DataType>varchar(250)|0</DataType>
+      <StateNumber>2167</StateNumber>
+    </column>
+    <index id="24" parent="18" name="users_id_uindex">
+      <ObjectId>26023</ObjectId>
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="25" parent="18" name="users_pkey">
+      <ObjectId>26021</ObjectId>
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="26" parent="18" name="users_pkey">
+      <ObjectId>26022</ObjectId>
+      <ColNames>id</ColNames>
+      <UnderlyingIndexName>users_pkey</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>

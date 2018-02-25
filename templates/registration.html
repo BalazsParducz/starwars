@@ -1,6 +1,7 @@
 {% extends "starwars.html" %}
 {% block title %}User Registration{% endblock %}
 {% block content %}
+
 <div class="registration">
     <form method="post" action="/registration">
         <label for="first_name">First name:</label>
@@ -12,9 +13,6 @@
         <label for="user_name">Your Username:</label>
         <p><input type="text" id="user_name" name="username" required></p>
 
-        <label for="email">Email:</label>
-        <p><input type="email" id="email" name="email" required></p>
-
         <label for="password">Password:</label>
         <p><input type="password" id="password" name="password" required></p>
 
@@ -22,6 +20,8 @@
         <p><button type="submit" id="submit" >Register</button></p>
     </form>
 </div>
-
+{% if message %}
+    <div>{{ message }}</div>
+{% endif %}}
 
 {% endblock %}
