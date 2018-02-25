@@ -1,20 +1,43 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import swapi_connector
+import json
 
 
 import DB_queries
 import data_manager
 from psycopg2 import IntegrityError
-
+counter=0
 
 app = Flask('starwas')
+app.secret_key = 'secret'
+
+
+
 
 
 @app.route('/')
-def main():
-    planets_data = swapi_connector.all_planets()
+def main_page():
+    url_dict = {}
+    global counter
+    if request.args.get("direction"):
+        if request.args.get("direction") == "next":
+            counter+=1
+            if counter==6:
+                counter=6
+        elif request.args.get("direction") == "prev":
+            if counter==0:
+                counter=0
+            else:
+                counter-=1
+    planets_data = swapi_connector.all_planets(counter)
+    print(planets_data)
+    for item in planets_data:
+        item['residents'] = json.dumps(item['residents'], ensure_ascii=False)
+    url_dict["residents"]=planets_data[0]["residents"]
+    url_dict = json.dumps(planets_data, ensure_ascii=False)
 
-    return render_template('star_data.html', planets_data=planets_data)
+    return render_template('star_data.html',
+                           planets_data=planets_data, residents=url_dict)
 
 
 @app.route('/registration', methods=['GET', 'POST'])
@@ -24,7 +47,8 @@ def registration():
         new_user['password'] = data_manager.hash_password(new_user['password'])
         try:
             DB_queries.save_registration(new_user)
-            return redirect(url_for('main_page'))
+            return render_template('star_data.html', logged_user=new_user['username'])
+            # return redirect(url_for('main_page'))
         except IntegrityError:
             return render_template('registration.html', message="Username or email is already in use")
     return render_template('registration.html')
@@ -35,20 +59,23 @@ def registration():
 def login():
     if request.path == '/logout':
         session.clear()
-        return render_template('index.html')
+        return render_template("star_data.html")
     if request.method == 'POST' and 'username' not in session:
         username = request.form['username']
         password = request.form['password']
         try:
             user = DB_queries.login(username)[0]
         except IndexError:
-            return render_template("index.html", message="Incorrect credentials")
+            return render_template('star_data.html', message="Incorrect credentials")
         if 'username' in user:
             if data_manager.verify_password(password, user['password_hash']):
                 for key in user:
                     session[key] = user[key]
                 return redirect(url_for('main_page'))
     return redirect(url_for('registration'))
+
+
+
 
 
 def main():
