@@ -6,7 +6,7 @@ import data_manager
 from psycopg2 import IntegrityError
 counter=0
 
-app = Flask('__name__')
+app = Flask(__name__)
 app.secret_key = 'secret'
 
 
