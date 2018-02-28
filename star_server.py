@@ -62,6 +62,7 @@ def login():
         password = request.form['password']
         try:
             user = DB_queries.login(username)[0]
+            session["username"] = username
         except IndexError:
             return render_template('star_data.html', message="Incorrect credentials")
         if 'username' in user:
@@ -69,19 +70,19 @@ def login():
                 for key in user:
                     session[key] = user[key]
                 return redirect(url_for('main_page'))
-    return redirect(url_for('registration'))
+    return redirect(url_for('main_page'))
 
 
 
-#
-#
-# def main():
-#     app.run(
-#         host="0.0.0.0",
-#         port=8888,
-#         debug=True
-#     )
-#
-#
-# if __name__ == '__main__':
-#     main()
+
+
+def main():
+    app.run(
+        host="0.0.0.0",
+        port=8888,
+        debug=True
+    )
+
+
+if __name__ == '__main__':
+    main()

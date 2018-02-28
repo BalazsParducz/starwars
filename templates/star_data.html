@@ -4,7 +4,7 @@
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <span><a href="">Planet list</a></span>
-        <span><a data-toggle="modal" href="/registration">Registration</a></span>
+        <span><a href="/registration" data-toggle="modal" data-target="#modalRegister">Registration</a></span>
 
         <span>
             <form method="POST" action="/login">
@@ -30,10 +30,10 @@
 <h1 class="header">See some space stats</h1>
 
 <nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item"><a class="page-link" href="{{ url_for('main_page', direction='prev') }}">Previous</a></li>
-    <li class="page-item"><a class="page-link" href="{{ url_for('main_page', direction='next') }}">Next</a></li>
-  </ul>
+    <ul class="pagination">
+        <li class="page-item"><a class="page-link" href="{{ url_for('main_page', direction='prev') }}">Previous</a></li>
+        <li class="page-item"><a class="page-link" href="{{ url_for('main_page', direction='next') }}">Next</a></li>
+    </ul>
 </nav>
 
 <div class="container">
@@ -59,13 +59,17 @@
                 <td>{{ item['diameter'] }} km</td>
                 <td>{{ item['climate'] }}</td>
                 <td>{{ item['terrain'] }}</td>
+                {% if item['surface_water']== 'unknown' %}
                 <td>{{ item['surface_water'] }}</td>
+                {% else %}
+                <td>{{ item['surface_water'] }} %</td>
+                {% endif %}
                 <td>{{ item['population'] }}</td>
                 {% if item['residents'] %}
                 {% set nr_of_residents = item['nr_of_residents']|length %}
                 <td><button type="button" class="btn btn-info residents" id="residents" name="residents"
                             data-toggle="modal" data-target="#exampleModal" value="{{ item['residents'] }}"
-                            >{{ nr_of_residents }} resident(s)
+                >{{ nr_of_residents }} resident(s)
                 </button></td>
                 {% else %}
                 <td>No known residents</td>
@@ -80,4 +84,5 @@
     </div>
 </div>
 {% include "modal.html" %}
+{% include "registration.html" %}
 {% endblock %}

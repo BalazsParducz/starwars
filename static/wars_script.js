@@ -32,8 +32,6 @@ function getResidentData(){
 
         });
     }
-
-
 }
 
 
@@ -54,37 +52,36 @@ function appendToElement(elementToExtend, textToAppend) {
 
 
 $(document).ready(function () {
-    for (let button of document.getElementsByClassName("residents")) {
+
+    var residents = $("#residents").val();
+
+    // for (let button of document.getElementsByClassName("residents")) {
+    for (let resident of JSON.parse(residents).residents) {
         button.addEventListener('click', function () {
+            debugger;
             var residentsModal = document.getElementById("residentsModal");
             residentsModal.innerHTML = '';
             var url = JSON.parse(button.getAttribute("value"));
-            for (let dataFromUrl of url ) {
+            debugger;
+            for (let dataFromUrl of url) {
                 $.ajax({
                     dataType: "json",
                     type: "GET",
                     url: dataFromUrl,
                     success: function (response) {
-                        appendToElement(document.getElementById("residentsModal"), modal)
-                    }
-                });
-            };
-    });
+                        // Generate modal
+                        var modal = `<tr>
+                                        <td scope="row">` + response['name'] + `</td>
+                                        <td>` + response['height'] + `</td>
+                                        <td>` + response['mass'] + `</td>
+                                        <td>` + response['hair_color'] + `</td>
+                                        <td>` + response['skin_color'] + `</td>
+                                        <td>` + response['eye_color'] + `</td>
+                                        <td>` + response['birth_year'] + `</td>
+                                        <td>` + response['gender'] + `</td>
+                                      </tr>`
+
+                    appendToElement(document.getElementById("residentsModal"), modal)
+ }})}})}});
 
 
-// Generate modal
-var modal = `
-          <tbody>
-          <tr>
-            <td>` + response['name'] + `</td>
-            <td>` + response['height'] + `</td>
-            <td>` + response['mass'] + `</td>
-            <td>` + response['hair_color'] + `</td>
-            <td>` + response['skin_color'] + `</td>
-            <td>` + response['eye_color'] + `</td>
-            <td>` + response['birth_year'] + `</td>
-            <td>` + response['gender'] + `</td>
-          </tr>
-          </tbody>
-
-        </table>`
